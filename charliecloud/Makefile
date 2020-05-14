@@ -25,7 +25,7 @@ tvarit.jupyterhub.tar.gz: context
 	charliecloud-0.15/bin/ch-builder2tar tvarit/jupyterhub .
 
 run: tvarit.jupyterhub
-	ch-run -g 0 -u 0 -w --no-home --no-passwd --private-tmp ./tvarit.jupyterhub -- /bin/bash
+	charliecloud-0.15/bin/ch-run -g 0 -u 0 -w --no-home --no-passwd --private-tmp ./tvarit.jupyterhub -- /bin/bash
 
 tvarit.jupyterhub:
 	charliecloud-0.15/bin/ch-tar2dir tvarit.jupyterhub.tar.gz .
