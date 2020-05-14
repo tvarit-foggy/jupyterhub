@@ -13,7 +13,7 @@ charliecloud-0.15: charliecloud-0.15.tar.gz
 charliecloud-0.15.tar.gz:
 	wget https://github.com/hpc/charliecloud/releases/download/v0.15/charliecloud-0.15.tar.gz
 
-build: docker
+build: tvarit.jupyterhub.tar.gz
 
 docker: context
 	docker build -t tvarit/jupyterhub context
