@@ -8,5 +8,5 @@
 
 Once inside charlie shell, try to get one of the following working
 
-1. sudo apt-get install nano
-2. dockerd
+1. apt-get install nano
+2. dockerd -G root
