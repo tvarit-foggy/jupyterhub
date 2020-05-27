@@ -1,4 +1,4 @@
-.PHONY: all deps build run
+.PHONY: all deps build run clean
 
 all: build
 
@@ -18,9 +18,7 @@ build: tvarit.jupyterhub.tar.gz
 docker: context
 	docker build -t tvarit/jupyterhub context
 
-tvarit.jupyterhub.tar.gz: context
-	@rm -rf tvarit.jupyterhub
-	@rm -rf tvarit.jupyterhub.tar.gz
+tvarit.jupyterhub.tar.gz: clean context
 	charliecloud-0.15/bin/ch-build -t tvarit/jupyterhub context
 	charliecloud-0.15/bin/ch-builder2tar tvarit/jupyterhub .
 
@@ -29,3 +27,7 @@ run: tvarit.jupyterhub
 
 tvarit.jupyterhub:
 	charliecloud-0.15/bin/ch-tar2dir tvarit.jupyterhub.tar.gz .
+
+clean:
+	@rm -rf tvarit.jupyterhub
+	@rm -rf tvarit.jupyterhub.tar.gz
