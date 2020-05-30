@@ -1,0 +1,10 @@
+charliecloud-0.15/
+charliecloud-0.15.tar.gz
+tvarit.jupyterhub.tar.gz
+tvarit.jupyterhub/
+volume/*
+!volume/.bashrc
+!volume/requirements.txt
+!volume/jupyterhub_config.py
+!volume/.jupyter/jupyter_config.py
+!volume/run.sh
