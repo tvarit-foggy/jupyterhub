@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+function fail {
+    printf '%s\n' "$1" >&2
+    exit "${2-1}"
+}
+
+[ $# -ne 2 ] && fail "Usage $0 <file/directory> <user>"
+
+[ -z "$1" ] && fail "Usage $0 <file/directory> <user>"
+[ ! -f "$1" ] && [ ! -d "$1" ] && fail "No such directory: $1"
+source=`realpath --relative-to="${HOME}" "$(readlink -f "$1")"`
+
+[ -z "$2" ] && fail "Usage $0 <directoy> <user>"
+[ ! -d "/opt/jupyterhub/users/$2" ] && fail "No such user: $2"
+recipient=$2
+
+cd "${HOME}"
+touch .share
+grep .share -Pe "^${recipient}:${source}$" &>/dev/null
+if [ $? -eq 0 ]; then
+    fail "${source} is already shared with ${recipient}" 0
+fi
+
+echo "${recipient}:${source}" >> .share
+
+prefix="/opt/jupyterhub/users/${recipient}/Shared with me/${USER}"
+name=`basename "${source}"`
+
+mkdir -p "${prefix}"
+
+if [ ! -f "${prefix}/${name}" ] && [ ! -d "${prefix}/${name}" ]; then
+  ln -sd "${HOME}/${source}" "${prefix}/${name}"
+  fail "Shared ${source} as ${name} with ${recipient}" 0
+else
+  for i in {1..100}; do
+    if [ -d "${HOME}/${source}" ]; then
+      name=`basename "${source}"`."${i}"
+    else
+      basename "${source}" | grep "." &>/dev/null
+      if [ $? -eq 0 ]; then
+        name=`basename "${source}" | sed -r "s/(.*)\./\1.${i}./"`
+      else
+        name=`basename "${source}"`."${i}"
+      fi
+    fi
+    if [ ! -f "${prefix}/${name}" ] && [ ! -d "${prefix}/${name}" ]; then
+      ln -sd "${HOME}/${source}" "${prefix}/${name}"
+      fail "Shared ${source} as ${name} with ${recipient}" 0
+    fi
+  done
+fi

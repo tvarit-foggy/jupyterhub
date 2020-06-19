@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+function fail {
+    printf '%s\n' "$1" >&2
+    exit "${2-1}"
+}
+
+[ $# -ne 2 ] && fail "Usage $0 <file/directory> <user>"
+
+[ -z "$1" ] && fail "Usage $0 <file/directory> <user>"
+source=`realpath --relative-to="${HOME}" "$(readlink -f "$1")"`
+
+[ -z "$2" ] && fail "Usage $0 <directoy> <user>"
+recipient=$2
+
+prefix="/opt/jupyterhub/users/${recipient}"
+if [ -d "${prefix}" ]; then
+  file=`find "${prefix}" -type l -ls | grep -Pe "-> ${HOME}/${source}" | grep -Poe "(?<=\d{2}:\d{2} ).*(?= ->)"`
+  if [ ! -z "${file}" ]; then
+    rm -r "$(echo "$file" | sed "s/\\\//g")"
+  fi
+fi
+
+touch "${HOME}/.share"
+grep "${HOME}/.share" -Pve "^${recipient}:${source}$" > "${HOME}/.share.tmp"
+mv "${HOME}/.share.tmp" "${HOME}/.share"

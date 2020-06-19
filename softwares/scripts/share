@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if [ "$1" == "add" ]; then
+  share-add "${@:2}"
+elif [ "$1" == "ls" ]; then
+  share-ls
+elif [ "$1" == "rm" ]; then
+  share-rm "${@:2}"
+else
+  echo "Usage $0 <add/ls/rm>"
+  exit 1
+fi

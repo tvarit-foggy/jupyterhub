@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+touch "${HOME}/.share"
+cat "${HOME}/.share" | sort -h
