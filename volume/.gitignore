@@ -1,6 +1,7 @@
 .*
 !.gitignore
 !.bashrc
+!.pyenv-installer
 jupyterhub_cookie_secret
 jupyterhub-proxy.pid
 jupyterhub.sqlite
