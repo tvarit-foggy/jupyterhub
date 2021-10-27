@@ -19,7 +19,7 @@ cloudpickle==1.4.1
 colorama==0.3.9
 cryptography==2.9.2
 cycler==0.10.0
-dask==2.1.0
+dask==2021.10.0
 dask-glm==0.2.0
 dask-ml==1.0.0
 datefinder==0.7.0
