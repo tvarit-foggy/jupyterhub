@@ -142,7 +142,7 @@ tvarit-api==1.1
 tzlocal==1.5.1
 update-checker==0.16
 urllib3==1.25.9
-waitress==1.4.3
+waitress==2.1.1
 wcwidth==0.1.9
 webencodings==0.5.1
 Werkzeug==1.0.1
