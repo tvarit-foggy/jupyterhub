@@ -75,7 +75,7 @@ nbformat==5.0.6
 networkx==2.4
 notebook==6.0.3
 numba==0.44.1
-numpy==1.16.4
+numpy==1.22.0
 oauthlib==3.1.0
 packaging==20.4
 pamela==1.0.0
